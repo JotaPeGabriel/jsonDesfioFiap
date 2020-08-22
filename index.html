@@ -10,25 +10,34 @@
 <script>
     function gerar() {
         var dados = {
-         title  : document.getElementById("title" ).value,
-         author : document.getElementById("author").value,
-         body   : document.getElementById("body"  ).value,
-         type   : document.getElementById("type"  ).value,
-         url    : document.getElementById("url"   ).value
+            title: document.getElementById("title").value,
+            author: document.getElementById("author").value,
+            body: document.getElementById("body").value,
+            type: document.getElementById("type").value,
+            url: document.getElementById("url").value
         }
         var aux = 0;
         for (var [key] of Object.entries(dados)) {
-            if  (dados [key] == "") {aux++;} 
+            if (dados[key] == "") { aux++; }
         }
-        if (aux > 0){
+        if (aux > 0) {
             alert("Preecha todos os campos");
+        } else {
+            document.getElementById("dados").value = JSON.stringify(dados);
+            download("arqui.txt",JSON.stringify(dados));
         }
-        
-        document.getElementById("dados"   ).value = JSON.stringify(dados);
+
+        function download(filename, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+            element.setAttribute('download', filename);
+            element.style.display = 'none';
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+        }
     }
-
 </script>
-
 <body>
     <div name="meu_form" class="center form">
         <h1>Dados</h1>
